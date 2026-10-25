@@ -1,0 +1,65 @@
+{
+  "name": "canvavid",
+  "version": "1.4.1",
+  "description": "Editor visual local en español para Windows",
+  "main": "src/main.cjs",
+  "author": "CanvaviD",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test tests/*.test.cjs",
+    "test:ui": "node tests/ui.cjs",
+    "dist": "electron-builder --win nsis --x64",
+    "test:studio": "node tests/studio-ui.cjs",
+    "test:personal": "node tests/personal-ui.cjs",
+    "test:catalogue": "node tests/catalogue-ui.cjs"
+  },
+  "dependencies": {
+    "electron-updater": "^6.8.11",
+    "pptxgenjs": "^4.0.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "electron": "^42.0.0",
+    "electron-builder": "^26.0.12",
+    "playwright": "^1.58.0"
+  },
+  "build": {
+    "appId": "local.canvavid.editor",
+    "productName": "CanvaviD",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "asar": true,
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
+      ],
+      "icon": "src/icon.ico",
+      "signExecutable": false
+    },
+    "nsis": {
+      "oneClick": false,
+      "perMachine": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "CanvaviD-Instalador-${version}-${arch}.${ext}",
+      "installerIcon": "src/icon.ico",
+      "uninstallerIcon": "src/icon.ico",
+      "installerHeaderIcon": "src/icon.ico"
+    }
+  },
+  "overrides": {
+    "image-size": "2.0.4"
+  }
+}

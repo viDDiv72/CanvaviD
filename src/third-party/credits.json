@@ -1,0 +1,50 @@
+[
+  {
+    "id": "sparksuite",
+    "repo": "sparksuite/simple-html-invoice-template",
+    "files": [
+      {
+        "name": "LICENSE",
+        "url": "https://raw.githubusercontent.com/sparksuite/simple-html-invoice-template/7d74fe34c862b7712f1a23a3f12147a4a8bd53e1/LICENSE",
+        "sha256": "c8ad2d5202a41fe59c78d51327a7050f933faee646acc0ec869d745e73a43b03"
+      },
+      {
+        "name": "invoice.html",
+        "url": "https://raw.githubusercontent.com/sparksuite/simple-html-invoice-template/7d74fe34c862b7712f1a23a3f12147a4a8bd53e1/invoice.html",
+        "sha256": "a7fe870a3e9bd20e6c3bacacdee648e93ef2976ec587d47b7c84b1b84b5f48bc"
+      }
+    ],
+    "revision": "7d74fe34c862b7712f1a23a3f12147a4a8bd53e1",
+    "license": "MIT",
+    "url": "https://github.com/sparksuite/simple-html-invoice-template"
+  },
+  {
+    "id": "reveal",
+    "repo": "hakimel/reveal.js",
+    "files": [
+      {
+        "name": "LICENSE",
+        "url": "https://raw.githubusercontent.com/hakimel/reveal.js/e240e175232fa2de660a02bc0d7bf5f655b159bb/LICENSE",
+        "sha256": "b2883e4b610bfa1b4d8fff84c4d4b825cc7d553cbd9fec4777c04068a2859dc0"
+      },
+      {
+        "name": "demo.html",
+        "url": "https://raw.githubusercontent.com/hakimel/reveal.js/e240e175232fa2de660a02bc0d7bf5f655b159bb/demo.html",
+        "sha256": "50cecf01b7ea14cf25af6849a67b3be0e69f91b693093059adb06305344b4631"
+      },
+      {
+        "name": "css/theme/black.scss",
+        "url": "https://raw.githubusercontent.com/hakimel/reveal.js/e240e175232fa2de660a02bc0d7bf5f655b159bb/css/theme/black.scss",
+        "sha256": "f7d6010d31e85b5a17ef5345b2f29dda5f8bb33d0d26144b6d5ebc2b398b7939"
+      },
+      {
+        "name": "css/theme/white.scss",
+        "url": "https://raw.githubusercontent.com/hakimel/reveal.js/e240e175232fa2de660a02bc0d7bf5f655b159bb/css/theme/white.scss",
+        "sha256": "f9a418f7de029382e37b3870e7b014e6d9ccb74ded08d4533233c742a9c2178b"
+      }
+    ],
+    "revision": "e240e175232fa2de660a02bc0d7bf5f655b159bb",
+    "license": "MIT",
+    "url": "https://github.com/hakimel/reveal.js"
+  }
+]
