@@ -29,6 +29,23 @@ npm run test:ui
 npm run dist
 ```
 
+## Versiones públicas y actualizaciones
+
+El código y los instaladores públicos se mantienen en [github.com/viDDiv72/CanvaviD](https://github.com/viDDiv72/CanvaviD). Los instaladores están en [Releases](https://github.com/viDDiv72/CanvaviD/releases). Cada etiqueta `vX.Y.Z` activa las pruebas de Windows, genera el instalador NSIS y publica `latest.yml`, el instalador, su `.blockmap` y `SHA256SUMS-X.Y.Z.txt`.
+
+Para publicar una versión futura:
+
+```powershell
+# Actualizar package.json/package-lock.json y ejecutar las pruebas localmente
+git add .
+git commit -m "Publicar CanvaviD X.Y.Z"
+git push origin main
+git tag vX.Y.Z
+git push origin vX.Y.Z
+```
+
+La aplicación instalada no descarga nada al arrancar: desde `↻ Actualizaciones` se consulta GitHub, se descarga la versión disponible y se instala después de confirmar y reiniciar. Las compilaciones de desarrollo muestran el panel, pero no contactan con el servicio de actualización.
+
 Los instaladores se generan en `release/`. Las pruebas de interfaz utilizan perfiles independientes; los documentos personales, claves, dependencias y binarios no se guardan en Git.
 
 ## Documentación

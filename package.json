@@ -1,6 +1,6 @@
 {
   "name": "canvavid",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Editor visual local en español para Windows",
   "main": "src/main.cjs",
   "author": "CanvaviD",
@@ -9,7 +9,7 @@
     "start": "electron .",
     "test": "node --test tests/*.test.cjs",
     "test:ui": "node tests/ui.cjs",
-    "dist": "electron-builder --win nsis --x64",
+    "dist": "electron-builder --win nsis --x64 --publish never",
     "test:studio": "node tests/studio-ui.cjs",
     "test:personal": "node tests/personal-ui.cjs",
     "test:catalogue": "node tests/catalogue-ui.cjs"
@@ -32,7 +32,8 @@
     },
     "files": [
       "src/**/*",
-      "package.json"
+      "package.json",
+      "LICENSE"
     ],
     "asar": true,
     "win": {
@@ -57,9 +58,25 @@
       "installerIcon": "src/icon.ico",
       "uninstallerIcon": "src/icon.ico",
       "installerHeaderIcon": "src/icon.ico"
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "viDDiv72",
+        "repo": "CanvaviD",
+        "releaseType": "release"
+      }
+    ]
   },
   "overrides": {
     "image-size": "2.0.4"
+  },
+  "homepage": "https://github.com/viDDiv72/CanvaviD",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/viDDiv72/CanvaviD.git"
+  },
+  "bugs": {
+    "url": "https://github.com/viDDiv72/CanvaviD/issues"
   }
 }

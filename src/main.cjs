@@ -1,9 +1,15 @@
 const {app,BrowserWindow,ipcMain,dialog,shell,safeStorage}=require('electron');
 const fs=require('node:fs/promises');const path=require('node:path');const CV=require('./core.js');
 if(process.env.CANVAVID_TEST_PROFILE)app.setPath('userData',path.resolve(process.env.CANVAVID_TEST_PROFILE));
+if(process.env.CI)app.disableHardwareAcceleration();
 if(!app.requestSingleInstanceLock()){app.quit();return;}
 let win,allowClose=false;const allowedProjectPaths=new Set();let autosaveQueue=Promise.resolve();
 app.on('second-instance',()=>{if(win){if(win.isMinimized())win.restore();win.show();win.focus();}});
+let updatesController;const updates=()=>{if(!updatesController){updatesController=new (require('./updates.cjs').Updates)(require('electron-updater').autoUpdater,{version:app.getVersion(),enabled:app.isPackaged,repository:'https://github.com/viDDiv72/CanvaviD'});updatesController.on('state',status=>{if(win&&!win.isDestroyed())win.webContents.send('updates:state',status);});}return updatesController;};
+ipcMain.handle('updates:status',()=>updates().snapshot());
+ipcMain.handle('updates:check',()=>updates().check());
+ipcMain.handle('updates:download',()=>updates().download());
+ipcMain.handle('updates:install',async()=>{updates().assertInstallable();await autosaveQueue.catch(()=>{});allowClose=true;try{updates().install();}catch(e){allowClose=false;throw e;}});
 const AI=require('./ai.cjs');const {Settings}=require('./ai-settings.cjs');
 const {Library}=require('./library.cjs');let libraryStore;const library=()=>libraryStore||(libraryStore=new Library(path.join(app.getPath('userData'),'library')));
 ipcMain.handle('library:list',(_,kind)=>library().list(kind));

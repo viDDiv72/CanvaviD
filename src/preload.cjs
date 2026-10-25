@@ -1,6 +1,7 @@
 const {contextBridge,ipcRenderer}=require('electron');
 contextBridge.exposeInMainWorld('desktop',{
   libraryList:kind=>ipcRenderer.invoke('library:list',kind),libraryRead:(kind,id)=>ipcRenderer.invoke('library:read',kind,id),librarySave:(kind,input)=>ipcRenderer.invoke('library:save',kind,input),libraryRemove:(kind,id)=>ipcRenderer.invoke('library:remove',kind,id),templateExport:input=>ipcRenderer.invoke('template:export',input),templateImport:()=>ipcRenderer.invoke('template:import'),
+  updatesStatus:()=>ipcRenderer.invoke('updates:status'),updatesCheck:()=>ipcRenderer.invoke('updates:check'),updatesDownload:()=>ipcRenderer.invoke('updates:download'),updatesInstall:()=>ipcRenderer.invoke('updates:install'),onUpdates:fn=>ipcRenderer.on('updates:state',(_event,status)=>fn(status)),
   open:()=>ipcRenderer.invoke('project:open'), save:(data,path)=>ipcRenderer.invoke('project:save',{data,path}),
   recover:()=>ipcRenderer.invoke('project:recover'), autosave:data=>ipcRenderer.invoke('project:autosave',data),
   exportFile:(kind,data,name)=>ipcRenderer.invoke('export:file',{kind,data,name}),

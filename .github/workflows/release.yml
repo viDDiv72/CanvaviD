@@ -1,0 +1,43 @@
+name: Release Windows
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v7.1.0
+        with:
+          node-version: 24
+          cache: npm
+      - name: Validate version tag
+        if: github.event_name == 'push'
+        shell: pwsh
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          if ($env:GITHUB_REF_NAME -ne "v$version") { throw "La etiqueta $env:GITHUB_REF_NAME no coincide con package.json ($version)" }
+      - run: npm ci
+      - run: npm test
+      - run: npm run test:catalogue
+      - run: npm run test:personal
+      - run: npm run test:studio
+      - run: npm run test:ui
+      - run: npm run dist
+      - name: Create public GitHub release
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $version = (Get-Content package.json -Raw | ConvertFrom-Json).version
+          $tag = "v$version"
+          $files = Get-ChildItem release -File | Where-Object { $_.Name -match 'CanvaviD-Instalador-' -or $_.Name -match 'latest\.yml$' }
+          if (-not $files) { throw 'No se generaron los artefactos de Windows esperados' }
+          $hash = Join-Path $pwd "release/SHA256SUMS-$version.txt"
+          (Get-ChildItem release -File | Where-Object { $_.Extension -in '.exe','.blockmap','.yml' } | Get-FileHash -Algorithm SHA256 | ForEach-Object { "$($_.Hash.ToLower())  $($_.Path | Split-Path -Leaf)" }) | Set-Content -Encoding utf8 $hash
+          gh release create $tag @($files.FullName) $hash --repo $env:GITHUB_REPOSITORY --verify-tag --generate-notes --title "CanvaviD $version"
